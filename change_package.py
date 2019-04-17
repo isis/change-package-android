@@ -10,7 +10,7 @@ package_separator = "."
 #arguments
 old_package = sys.argv[1]
 new_package = sys.argv[2]
-proguard = None
+
 
 def charge_proguard():
 	global proguard
@@ -63,13 +63,49 @@ def change_files(path_folder):
 			else:
 				print("ignore this file")
 
-def move_folders():
-	original_route = initial_folder + os.sep + "src" + os.sep + "main" + os.sep + "java" + os.sep + old_package.replace(package_separator, os.sep)
-	destiny_route = initial_folder + os.sep + "src" + os.sep + "main" + os.sep + "java" + os.sep + new_package.replace(package_separator, os.sep)
-	shutil.move(original_route, initial_folder + os.sep + "my_temporal_folder")
-	shutil.rmtree(initial_folder + os.sep + "src" + os.sep + "main" + os.sep + "java" + os.sep)
+# def move_folders():
+# 	original_route = initial_folder + os.sep + "src" + os.sep + "main" + os.sep + "java" + os.sep + old_package.replace(package_separator, os.sep)
+# 	destiny_route = initial_folder + os.sep + "src" + os.sep + "main" + os.sep + "java" + os.sep + new_package.replace(package_separator, os.sep)
+# 	shutil.move(original_route, initial_folder + os.sep + "my_temporal_folder")
+# 	shutil.rmtree(initial_folder + os.sep + "src" + os.sep + "main" + os.sep + "java" + os.sep)
+# 	print("new java route: " + destiny_route)
+# 	shutil.move(initial_folder + os.sep + "my_temporal_folder", destiny_route)
+
+# def move_test_folders():
+# 	original_route = initial_folder + os.sep + "src" + os.sep + "test" + os.sep + "java" + os.sep + old_package.replace(package_separator, os.sep)
+# 	destiny_route = initial_folder + os.sep + "src" + os.sep + "test" + os.sep + "java" + os.sep + new_package.replace(package_separator, os.sep)
+# 	shutil.move(original_route, initial_folder + os.sep + "my_temporal_test_folder")
+# 	shutil.rmtree(initial_folder + os.sep + "src" + os.sep + "test" + os.sep + "java" + os.sep)
+# 	print("new java route: " + destiny_route)
+# 	shutil.move(initial_folder + os.sep + "my_temporal_test_folder", destiny_route)
+
+# def move_android_test_folders():
+# 	original_route = initial_folder + os.sep + "src" + os.sep + "androidTest" + os.sep + "java" + os.sep + old_package.replace(package_separator, os.sep)
+# 	destiny_route = initial_folder + os.sep + "src" + os.sep + "androidTest" + os.sep + "java" + os.sep + new_package.replace(package_separator, os.sep)
+# 	shutil.move(original_route, initial_folder + os.sep + "my_temporal_androidTest_folder")
+# 	shutil.rmtree(initial_folder + os.sep + "src" + os.sep + "androidTest" + os.sep + "java" + os.sep)
+# 	print("new java route: " + destiny_route)
+# 	shutil.move(initial_folder + os.sep + "my_temporal_androidTest_folder", destiny_route)
+
+def move_folder(path_folder):
+	original_route = initial_folder + os.sep + "src" + os.sep + path_folder + os.sep + "java" + os.sep + old_package.replace(package_separator, os.sep)
+	destiny_route = initial_folder + os.sep + "src" + os.sep + path_folder + os.sep + "java" + os.sep + new_package.replace(package_separator, os.sep)
+	shutil.move(original_route, initial_folder + os.sep + "my_temporal_" path_folder + "_folder")
+	shutil.rmtree(initial_folder + os.sep + "src" + os.sep + path_folder + os.sep + "java" + os.sep)
 	print("new java route: " + destiny_route)
-	shutil.move(initial_folder + os.sep + "my_temporal_folder", destiny_route)
+	shutil.move(initial_folder + os.sep + "my_temporal_" path_folder + "_folder", destiny_route)
+
+def move_folders():
+	print("current directory: " + path_folder)
+	
+	for f in os.listdir(path_folder):
+		print("file " + str(f))
+		#is a folder
+		if os.path.isdir(path_folder + os.sep + f):
+			#ignore build folder
+			if(str(f) != "build"):
+				move_folder(f)
+
 
 def init_script():
 	charge_proguard()
