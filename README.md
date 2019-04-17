@@ -30,3 +30,17 @@ python3 change_package.py com.example.pedro com.company.project myproguardname.p
 
 Projects with NDK not supported (script work but you need change NDK youself).
 
+
+# Change Project name
+
+#Usage
+
+1- Put the script in your project root  in your project
+
+2- Execute the script
+
+
+```
+python3 change_project_name.py oldprojectname newprojectname
+```
+
